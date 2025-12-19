@@ -1,3 +1,5 @@
+- [ ] Corrigir erro de aninhamento de tags `<a>` dentro de `<Link>` em `Layout.tsx`
+- [ ] Verificar e aplicar alterações de texto solicitadas (HOME, BLOG, SOBRE, CONTATO)
 - [ ] Gerar nova Logo: "Thiago Piola" + "Consultor de Produtividade e Tecnologia" (Verde Neon)
 - [ ] Gerar novo Background Hero: Cérebro harmonioso, inteligência, conexões neurais (sem medo)
 - [ ] Gerar imagens de apoio (PT-BR):

@@ -41,7 +41,7 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-black font-bold text-lg px-10 h-14 shadow-[0_0_30px_rgba(0,255,0,0.2)] hover:shadow-[0_0_40px_rgba(0,255,0,0.4)] transition-all rounded-full">
-                QUERO EVOLUIR AGORA <ArrowRight className="ml-2 h-5 w-5" />
+                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
             
@@ -216,7 +216,7 @@ export default function Home() {
             </h2>
             
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
-              Receba semanalmente insights profundos sobre IA, Produtividade e Biohacking que a mídia tradicional ignora. Junte-se à elite intelectual que está moldando o futuro.
+              Receba semanalmente insights profundos sobre IA, Produtividade e Biohacking que a mídia tradicional ignora. Aprenda de verdade com quem está criando o FUTURO
             </p>
 
             <form className="max-w-md mx-auto space-y-4" onSubmit={(e) => e.preventDefault()}>
@@ -228,10 +228,10 @@ export default function Home() {
                 />
               </div>
               <Button className="w-full h-14 rounded-full bg-primary text-black font-bold text-lg hover:bg-primary/90 shadow-lg hover:shadow-primary/25 transition-all">
-                INSCREVER-SE GRATUITAMENTE
+                INSCREVER-SE AGORA
               </Button>
               <p className="text-xs text-muted-foreground mt-4">
-                *Conteúdo denso e livre de spam. Cancele quando quiser.
+                *Conteúdo profissional e livre de spam. Cancele quando quiser.
               </p>
             </form>
           </div>

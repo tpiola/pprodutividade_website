@@ -76,29 +76,29 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <header className="fixed top-0 w-full z-50 border-b border-border/20 bg-background/80 backdrop-blur-md">
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
           <Link href="/">
-            <a className="flex items-center gap-3 group">
+            <div className="flex items-center gap-3 group cursor-pointer">
               <div className="w-10 h-10 relative">
-                <img src="/images/thiago-piola-logo-v2.png" alt="Thiago Piola Logo" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" />
+                <img src="/images/thiago-piola-logo-v2.png" alt="Thiago Piola Logo" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" style={{width: '273px'}} />
               </div>
               <span className="font-display font-bold text-xl tracking-tight text-white group-hover:text-primary transition-colors">
                 THIAGO PIOLA
               </span>
-            </a>
+            </div>
           </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
             <Link href="/#futuro">
-              <a className="text-sm font-medium hover:text-primary transition-colors uppercase tracking-wide">O Futuro</a>
+              <span className="text-sm font-medium hover:text-primary transition-colors uppercase tracking-wide cursor-pointer">HOME</span>
             </Link>
             <Link href="/#biohacking">
-              <a className="text-sm font-medium hover:text-primary transition-colors uppercase tracking-wide">Biohacking</a>
+              <span className="text-sm font-medium hover:text-primary transition-colors uppercase tracking-wide cursor-pointer">BLOG</span>
             </Link>
             <Link href="/#newsletter">
-              <a className="text-sm font-medium hover:text-primary transition-colors uppercase tracking-wide">Newsletter</a>
+              <span className="text-sm font-medium hover:text-primary transition-colors uppercase tracking-wide cursor-pointer">SOBRE</span>
             </Link>
             <Button variant="outline" className="font-display text-xs border-primary/50 text-primary hover:bg-primary hover:text-black uppercase tracking-wider">
-              Área do Aluno
+              CONTATO
             </Button>
           </nav>
 
@@ -143,16 +143,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <h3 className="font-display font-bold text-xl text-white">THIAGO PIOLA</h3>
             </div>
             <p className="text-muted-foreground text-sm max-w-md leading-relaxed">
-              Acelerando a evolução humana através da neurociência aplicada e inteligência artificial. O futuro pertence a quem domina a velocidade e a resiliência.
+              Com Biohacking e IA, conquiste a Produtividade Inabalável, mente e corpo fortalecidos, sem burnout ou limitações – o futuro é seu, não fique para trás. <br/>
+              <span className="text-white font-bold">Seja Imparável!</span>
             </p>
           </div>
           
           <div>
             <h4 className="font-display text-xs text-primary mb-6 uppercase tracking-widest font-bold">Navegação</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
-              <li><Link href="/#futuro"><a className="hover:text-white transition-colors">Inteligência Artificial</a></Link></li>
-              <li><Link href="/#biohacking"><a className="hover:text-white transition-colors">Biohacking & Saúde</a></Link></li>
-              <li><Link href="/#newsletter"><a className="hover:text-white transition-colors">Inscreva-se</a></Link></li>
+              <li><Link href="/#futuro"><span className="hover:text-white transition-colors cursor-pointer">HOME</span></Link></li>
+              <li><Link href="/#biohacking"><span className="hover:text-white transition-colors cursor-pointer">BLOG</span></Link></li>
+              <li><Link href="/#newsletter"><span className="hover:text-white transition-colors cursor-pointer">SOBRE</span></Link></li>
             </ul>
           </div>
 
