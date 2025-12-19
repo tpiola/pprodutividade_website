@@ -1,17 +1,8 @@
-- [ ] Corrigir erro de aninhamento de tags `<a>` dentro de `<Link>` em `Layout.tsx`
-- [ ] Verificar e aplicar alterações de texto solicitadas (HOME, BLOG, SOBRE, CONTATO)
-- [ ] Gerar nova Logo: "Thiago Piola" + "Consultor de Produtividade e Tecnologia" (Verde Neon)
-- [ ] Gerar novo Background Hero: Cérebro harmonioso, inteligência, conexões neurais (sem medo)
-- [ ] Gerar imagens de apoio (PT-BR):
-    - [ ] Mapa Mundi: "Fluxo de Dados", "Desvantagem Competitiva"
-    - [ ] Biohacking: "Frequência Cardíaca", "Atividade Neural", "Estado de Fluxo"
-- [ ] Atualizar `index.html` e `Layout.tsx`: Remover termos em inglês, mudar nome para Thiago Piola
-- [ ] Implementar animação de partículas/estrelas leve (Starfield)
-- [ ] Reescrever `Home.tsx`:
-    - [ ] Remover seção de Hacks
-    - [ ] Nova Copy: "O Futuro é Agora", "IA como Aliada", "Desvantagem Competitiva"
-    - [ ] Seção Biohacking: Saúde e Velocidade
-    - [ ] Gatilhos mentais: Urgência (não ficar para trás), Prova Social (uso global)
-- [ ] Adicionar Banner LGPD/Cookies
-- [ ] Verificar e otimizar responsividade (Mobile/Tablet/Desktop)
-- [ ] Atualizar Guia de Implementação WordPress com as novas diretrizes
+- [ ] Aumentar tamanho do Logo no Header e Footer
+- [ ] Configurar botão "CONTATO" para `mailto:contato@thiagopiola.com.br`
+- [ ] Adicionar botão flutuante do WhatsApp
+- [ ] Implementar ícones de redes sociais no rodapé (Facebook, Instagram, Linkedin, X, Email, Tik Tok, Kwai) com design personalizado
+- [ ] Substituir animação de estrelas por "Rede Neural Interativa" (Canvas)
+- [ ] Otimizar SEO e GEO (Meta tags, Schema.org)
+- [ ] Melhorar performance (Lighthouse score)
+- [ ] Atualizar Guia de Implementação WordPress com códigos CSS/JS da animação neural
