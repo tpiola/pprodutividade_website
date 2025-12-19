@@ -189,6 +189,91 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Section: Blog / Insights Estratégicos */}
+      <section id="blog" className="py-24 bg-background relative">
+        <div className="container px-4">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+            <div className="space-y-4 max-w-2xl">
+              <Badge variant="outline" className="border-primary/50 text-primary px-4 py-1 text-xs uppercase tracking-widest">
+                Knowledge Base
+              </Badge>
+              <h2 className="font-display text-3xl md:text-4xl font-bold">
+                INSIGHTS <span className="text-primary">ESTRATÉGICOS</span>
+              </h2>
+              <p className="text-muted-foreground text-lg">
+                Análises profundas sobre as ferramentas e protocolos que estão redefinindo o jogo.
+              </p>
+            </div>
+            <Button variant="outline" className="border-primary/50 text-primary hover:bg-primary hover:text-black">
+              VER TODOS OS ARTIGOS <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                category: "Inteligência Artificial",
+                title: "Como criar um 'Segundo Cérebro' usando Obsidian e GPT-4",
+                excerpt: "Pare de confiar na sua memória falha. Aprenda a estruturar um sistema de conhecimento que cresce exponencialmente com você.",
+                date: "18 DEZ 2025",
+                readTime: "8 MIN LEITURA",
+                image: "/images/ai-productivity.png"
+              },
+              {
+                category: "Biohacking",
+                title: "O Protocolo de Sono dos CEOs do Vale do Silício",
+                excerpt: "Dormir 4 horas por noite não é produtivo, é suicídio cognitivo. Descubra como otimizar seu ciclo circadiano para máxima recuperação.",
+                date: "15 DEZ 2025",
+                readTime: "6 MIN LEITURA",
+                image: "/images/biohacking-health-ptbr.png"
+              },
+              {
+                category: "Produtividade",
+                title: "Deep Work: A Habilidade Mais Valiosa do Século XXI",
+                excerpt: "Em um mundo de distrações infinitas, quem consegue focar por 4 horas ininterruptas domina o mercado. Veja como treinar essa capacidade.",
+                date: "10 DEZ 2025",
+                readTime: "12 MIN LEITURA",
+                image: "/images/hero-brain-harmony.png"
+              }
+            ].map((post, i) => (
+              <article key={i} className="group cursor-pointer flex flex-col h-full">
+                <div className="relative overflow-hidden rounded-2xl mb-6 aspect-video border border-border/50 group-hover:border-primary/50 transition-colors">
+                  <img 
+                    src={post.image} 
+                    alt={post.title} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                  <Badge className="absolute top-4 left-4 bg-black/50 backdrop-blur border border-primary/30 text-primary hover:bg-primary hover:text-black transition-colors">
+                    {post.category}
+                  </Badge>
+                </div>
+                
+                <div className="flex-1 flex flex-col">
+                  <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3 font-mono">
+                    <time dateTime="2025-12-18">{post.date}</time>
+                    <span>•</span>
+                    <span>{post.readTime}</span>
+                  </div>
+                  
+                  <h3 className="font-display text-xl font-bold mb-3 group-hover:text-primary transition-colors leading-tight">
+                    {post.title}
+                  </h3>
+                  
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-6 line-clamp-3 flex-1">
+                    {post.excerpt}
+                  </p>
+                  
+                  <div className="flex items-center text-primary text-sm font-bold tracking-wide group-hover:translate-x-2 transition-transform">
+                    LER ARTIGO <ArrowRight className="ml-2 h-4 w-4" />
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Section: Biohacking & Saúde */}
       <section id="biohacking" className="py-24 bg-background relative">
         <div className="container px-4">

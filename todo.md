@@ -1,5 +1,6 @@
-- [ ] Criar seção de Depoimentos ("Casos de Sucesso") em `Home.tsx`
-    - [ ] Design Glassmorphism com bordas neon sutis
-    - [ ] Copy focado em resultados (Produtividade, IA, Biohacking)
-    - [ ] Perfis de autoridade (CEO, Médico, Empreendedor)
-- [ ] Atualizar navegação para incluir link para Depoimentos (opcional, ou manter fluxo fluido)
+- [ ] Criar seção de Blog ("Insights Estratégicos") em `Home.tsx`
+    - [ ] Design Grid com cards Glassmorphism
+    - [ ] Estrutura HTML semântica para SEO (`<article>`, `<h3>`, `<time>`)
+    - [ ] Imagens de destaque com tema tecnológico
+    - [ ] Categorias: IA, Biohacking, Produtividade
+- [ ] Atualizar Guia de Implementação WordPress com instruções para o Blog (JetEngine)
