@@ -1,4 +1,7 @@
-- [ ] Criar seção de FAQ em `Home.tsx`
-    - [ ] Componente Accordion (shadcn/ui)
-    - [ ] Perguntas estratégicas sobre IA, Biohacking e Produtividade
-    - [ ] Design escuro com detalhes neon
+- [ ] Criar página `Sobre.tsx`
+    - [ ] Hero Section com foto e headline pessoal
+    - [ ] Seção "Minha Missão"
+    - [ ] Timeline da jornada profissional
+    - [ ] Valores da consultoria
+    - [ ] CTA para contato/consultoria
+- [ ] Adicionar rota `/sobre` em `App.tsx`
