@@ -1,8 +1,5 @@
-- [ ] Aumentar tamanho do Logo no Header e Footer
-- [ ] Configurar botão "CONTATO" para `mailto:contato@thiagopiola.com.br`
-- [ ] Adicionar botão flutuante do WhatsApp
-- [ ] Implementar ícones de redes sociais no rodapé (Facebook, Instagram, Linkedin, X, Email, Tik Tok, Kwai) com design personalizado
-- [ ] Substituir animação de estrelas por "Rede Neural Interativa" (Canvas)
-- [ ] Otimizar SEO e GEO (Meta tags, Schema.org)
-- [ ] Melhorar performance (Lighthouse score)
-- [ ] Atualizar Guia de Implementação WordPress com códigos CSS/JS da animação neural
+- [ ] Criar seção de Depoimentos ("Casos de Sucesso") em `Home.tsx`
+    - [ ] Design Glassmorphism com bordas neon sutis
+    - [ ] Copy focado em resultados (Produtividade, IA, Biohacking)
+    - [ ] Perfis de autoridade (CEO, Médico, Empreendedor)
+- [ ] Atualizar navegação para incluir link para Depoimentos (opcional, ou manter fluxo fluido)

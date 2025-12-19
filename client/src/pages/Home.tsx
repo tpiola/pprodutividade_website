@@ -130,6 +130,65 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Section: Depoimentos (Prova Social) */}
+      <section className="py-24 bg-black relative overflow-hidden">
+        <div className="container px-4 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+            <Badge variant="outline" className="border-primary/50 text-primary px-4 py-1 text-xs uppercase tracking-widest">
+              Casos de Sucesso
+            </Badge>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white">
+              QUEM JÁ <span className="text-primary">DOMINA O FUTURO</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                name: "Dr. Ricardo Silva",
+                role: "Neurocirurgião",
+                text: "A metodologia do Thiago mudou minha prática. Uso IA para analisar exames e biohacking para manter o foco em cirurgias de 12 horas. Minha produtividade triplicou.",
+                image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150&h=150&fit=crop&crop=faces"
+              },
+              {
+                name: "Ana Clara",
+                role: "CEO de Startup Tech",
+                text: "Estava à beira do burnout. Com os protocolos de saúde e a automação de processos que aprendi, recuperei minha energia e escalei minha empresa em tempo recorde.",
+                image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=faces"
+              },
+              {
+                name: "Marcos Viana",
+                role: "Investidor Anjo",
+                text: "O Brasil está atrasado, mas o Thiago traz o que há de mais avançado lá fora. A visão sobre IA como extensão cognitiva é simplesmente brilhante e lucrativa.",
+                image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=faces"
+              }
+            ].map((testimonial, i) => (
+              <Card key={i} className="bg-white/5 backdrop-blur-md border-white/10 hover:border-primary/50 transition-all duration-300 group">
+                <CardContent className="p-8 space-y-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-primary/20 group-hover:border-primary transition-colors">
+                      <img src={testimonial.image} alt={testimonial.name} className="w-full h-full object-cover" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-white">{testimonial.name}</h4>
+                      <p className="text-xs text-primary uppercase tracking-wider">{testimonial.role}</p>
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground text-sm leading-relaxed italic">
+                    "{testimonial.text}"
+                  </p>
+                  <div className="flex gap-1 text-primary">
+                    {[...Array(5)].map((_, j) => (
+                      <Zap key={j} size={14} fill="currentColor" />
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Section: Biohacking & Saúde */}
       <section id="biohacking" className="py-24 bg-background relative">
         <div className="container px-4">
