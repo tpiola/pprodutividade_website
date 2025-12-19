@@ -1,7 +1,10 @@
-- [ ] Criar página `Sobre.tsx`
-    - [ ] Hero Section com foto e headline pessoal
-    - [ ] Seção "Minha Missão"
-    - [ ] Timeline da jornada profissional
-    - [ ] Valores da consultoria
-    - [ ] CTA para contato/consultoria
-- [ ] Adicionar rota `/sobre` em `App.tsx`
+- [ ] Upgrade para Full-Stack (web-db-user)
+- [ ] Configurar Supabase para Newsletter
+- [ ] Criar página `/blog` com filtros (Produtividade, Biohacking, IA)
+- [ ] Criar página `/noticias`
+- [ ] Inserir formulário de Newsletter (Topo, Meio, Fim) em TODAS as páginas
+- [ ] Atualizar Logo (maior, sem subtítulo)
+- [ ] Substituir imagem Hero por "Transformação Real"
+- [ ] Suavizar animação do WhatsApp
+- [ ] Botão "Voltar ao Topo" em todas as páginas de blog
+- [ ] Otimização final de SEO e Performance
