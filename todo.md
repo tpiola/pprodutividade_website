@@ -1,3 +1,4 @@
-- [ ] Adicionar botões de compartilhamento social (WhatsApp, LinkedIn, X) nos cards do Blog em `Home.tsx`
-    - [ ] Design minimalista com hover neon
-    - [ ] Links funcionais de compartilhamento (`wa.me`, `linkedin.com/share`, etc.)
+- [ ] Criar seção de FAQ em `Home.tsx`
+    - [ ] Componente Accordion (shadcn/ui)
+    - [ ] Perguntas estratégicas sobre IA, Biohacking e Produtividade
+    - [ ] Design escuro com detalhes neon

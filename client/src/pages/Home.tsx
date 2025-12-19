@@ -2,6 +2,7 @@ import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ArrowRight, Brain, Zap, Globe, Cpu, Activity, CheckCircle2, Share2, Linkedin, Twitter, MessageCircle } from "lucide-react";
 
 export default function Home() {
@@ -285,6 +286,50 @@ export default function Home() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Section: FAQ (Perguntas Frequentes) */}
+      <section className="py-24 bg-black relative overflow-hidden">
+        <div className="container px-4 max-w-4xl">
+          <div className="text-center mb-16 space-y-4">
+            <Badge variant="outline" className="border-primary/50 text-primary px-4 py-1 text-xs uppercase tracking-widest">
+              Dúvidas Comuns
+            </Badge>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white">
+              PERGUNTAS <span className="text-primary">FREQUENTES</span>
+            </h2>
+          </div>
+
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            {[
+              {
+                question: "Preciso saber programar para usar IA na minha produtividade?",
+                answer: "Absolutamente não. O foco da nossa metodologia é ensinar você a 'conversar' com a IA (Engenharia de Prompt) e integrar ferramentas no-code que automatizam seu trabalho sem digitar uma linha de código."
+              },
+              {
+                question: "O que é Biohacking e é seguro?",
+                answer: "Biohacking é a arte e ciência de otimizar seu ambiente e biologia para performance. Ensinamos apenas protocolos baseados em evidências científicas (sono, nutrição, suplementação segura) que médicos e atletas de elite utilizam."
+              },
+              {
+                question: "Como a IA pode me ajudar se eu não trabalho com tecnologia?",
+                answer: "A IA é agnóstica de setor. Médicos usam para diagnósticos, advogados para análise de contratos, vendedores para scripts e arquitetos para renderização. Se você usa um computador ou celular, a IA pode acelerar seu trabalho em 10x."
+              },
+              {
+                question: "O conteúdo é atualizado com que frequência?",
+                answer: "O mundo da IA muda semanalmente. Nossa newsletter e área de membros são atualizadas em tempo real com as novas ferramentas (GPT-5, Gemini, Claude) assim que são lançadas, para você estar sempre à frente."
+              }
+            ].map((faq, i) => (
+              <AccordionItem key={i} value={`item-${i}`} className="border border-white/10 bg-white/5 rounded-lg px-6 data-[state=open]:border-primary/50 transition-all duration-300">
+                <AccordionTrigger className="text-white hover:text-primary hover:no-underline py-6 font-display text-lg text-left">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground text-base leading-relaxed pb-6">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 
