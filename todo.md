@@ -1,0 +1,13 @@
+- [ ] Gerar nova Logo: Banco de Dados + Cérebro (Branco e Verde Neon)
+- [ ] Gerar novo Background Hero: Cérebro harmonioso, inteligência, conexões neurais (sem medo)
+- [ ] Gerar imagens de apoio: IA e Produtividade, Biohacking/Saúde, Mapa Mundi (Brasil vs Mundo)
+- [ ] Atualizar `index.html` e `Layout.tsx`: Remover termos em inglês, mudar nome para Thiago Piola
+- [ ] Implementar animação de partículas/estrelas leve (Starfield)
+- [ ] Reescrever `Home.tsx`:
+    - [ ] Remover seção de Hacks
+    - [ ] Nova Copy: "O Futuro é Agora", "IA como Aliada", "Desvantagem Competitiva"
+    - [ ] Seção Biohacking: Saúde e Velocidade
+    - [ ] Gatilhos mentais: Urgência (não ficar para trás), Prova Social (uso global)
+- [ ] Adicionar Banner LGPD/Cookies
+- [ ] Verificar e otimizar responsividade (Mobile/Tablet/Desktop)
+- [ ] Atualizar Guia de Implementação WordPress com as novas diretrizes
