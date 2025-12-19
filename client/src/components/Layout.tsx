@@ -78,7 +78,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <Link href="/">
             <a className="flex items-center gap-3 group">
               <div className="w-10 h-10 relative">
-                <img src="/images/thiago-piola-logo.png" alt="Thiago Piola Logo" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" />
+                <img src="/images/thiago-piola-logo-v2.png" alt="Thiago Piola Logo" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" />
               </div>
               <span className="font-display font-bold text-xl tracking-tight text-white group-hover:text-primary transition-colors">
                 THIAGO PIOLA
@@ -139,7 +139,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="container mx-auto px-4 grid md:grid-cols-4 gap-12">
           <div className="col-span-2 space-y-6">
             <div className="flex items-center gap-2">
-              <img src="/images/thiago-piola-logo.png" alt="Logo" className="w-8 h-8" />
+              <img src="/images/thiago-piola-logo-v2.png" alt="Logo" className="w-8 h-8" />
               <h3 className="font-display font-bold text-xl text-white">THIAGO PIOLA</h3>
             </div>
             <p className="text-muted-foreground text-sm max-w-md leading-relaxed">

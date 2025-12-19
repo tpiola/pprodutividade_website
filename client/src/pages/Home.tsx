@@ -92,7 +92,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="order-2 lg:order-1 relative">
               <img 
-                src="/images/global-competition.png" 
+                src="/images/global-competition-ptbr.png" 
                 alt="Mapa Global de Competitividade" 
                 className="w-full rounded-2xl border border-border/50 shadow-2xl opacity-90 hover:opacity-100 transition-opacity duration-500"
               />
@@ -187,7 +187,7 @@ export default function Home() {
           </div>
           
           <div className="mt-16 relative rounded-2xl overflow-hidden border border-border/50">
-            <img src="/images/biohacking-health.png" alt="Biohacking Visualization" className="w-full h-[400px] object-cover opacity-60" />
+            <img src="/images/biohacking-health-ptbr.png" alt="Biohacking Visualization" className="w-full h-[400px] object-cover opacity-60" />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
             <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 text-center">
               <h3 className="text-2xl font-bold text-white mb-4">Seu corpo é a única máquina que você não pode trocar.</h3>

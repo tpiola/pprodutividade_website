@@ -1,6 +1,8 @@
-- [ ] Gerar nova Logo: Banco de Dados + Cérebro (Branco e Verde Neon)
+- [ ] Gerar nova Logo: "Thiago Piola" + "Consultor de Produtividade e Tecnologia" (Verde Neon)
 - [ ] Gerar novo Background Hero: Cérebro harmonioso, inteligência, conexões neurais (sem medo)
-- [ ] Gerar imagens de apoio: IA e Produtividade, Biohacking/Saúde, Mapa Mundi (Brasil vs Mundo)
+- [ ] Gerar imagens de apoio (PT-BR):
+    - [ ] Mapa Mundi: "Fluxo de Dados", "Desvantagem Competitiva"
+    - [ ] Biohacking: "Frequência Cardíaca", "Atividade Neural", "Estado de Fluxo"
 - [ ] Atualizar `index.html` e `Layout.tsx`: Remover termos em inglês, mudar nome para Thiago Piola
 - [ ] Implementar animação de partículas/estrelas leve (Starfield)
 - [ ] Reescrever `Home.tsx`:
