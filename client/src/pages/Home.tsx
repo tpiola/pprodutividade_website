@@ -2,7 +2,7 @@ import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Brain, Zap, Globe, Cpu, Activity, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Brain, Zap, Globe, Cpu, Activity, CheckCircle2, Share2, Linkedin, Twitter, MessageCircle } from "lucide-react";
 
 export default function Home() {
   return (
@@ -264,8 +264,22 @@ export default function Home() {
                     {post.excerpt}
                   </p>
                   
-                  <div className="flex items-center text-primary text-sm font-bold tracking-wide group-hover:translate-x-2 transition-transform">
-                    LER ARTIGO <ArrowRight className="ml-2 h-4 w-4" />
+                  <div className="flex items-center justify-between mt-auto pt-6 border-t border-border/50">
+                    <div className="flex items-center text-primary text-sm font-bold tracking-wide group-hover:translate-x-2 transition-transform">
+                      LER ARTIGO <ArrowRight className="ml-2 h-4 w-4" />
+                    </div>
+                    
+                    <div className="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <button className="text-muted-foreground hover:text-[#25D366] transition-colors" title="Compartilhar no WhatsApp">
+                        <MessageCircle size={18} />
+                      </button>
+                      <button className="text-muted-foreground hover:text-[#0077B5] transition-colors" title="Compartilhar no LinkedIn">
+                        <Linkedin size={18} />
+                      </button>
+                      <button className="text-muted-foreground hover:text-white transition-colors" title="Compartilhar no X">
+                        <Twitter size={18} />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </article>

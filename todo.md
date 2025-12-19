@@ -1,6 +1,3 @@
-- [ ] Criar seção de Blog ("Insights Estratégicos") em `Home.tsx`
-    - [ ] Design Grid com cards Glassmorphism
-    - [ ] Estrutura HTML semântica para SEO (`<article>`, `<h3>`, `<time>`)
-    - [ ] Imagens de destaque com tema tecnológico
-    - [ ] Categorias: IA, Biohacking, Produtividade
-- [ ] Atualizar Guia de Implementação WordPress com instruções para o Blog (JetEngine)
+- [ ] Adicionar botões de compartilhamento social (WhatsApp, LinkedIn, X) nos cards do Blog em `Home.tsx`
+    - [ ] Design minimalista com hover neon
+    - [ ] Links funcionais de compartilhamento (`wa.me`, `linkedin.com/share`, etc.)
