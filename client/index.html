@@ -27,10 +27,17 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script
-      defer
-      src="%VITE_ANALYTICS_ENDPOINT%/umami"
-      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
+    <!-- Analytics: Only loaded if VITE_ANALYTICS_ENDPOINT and VITE_ANALYTICS_WEBSITE_ID are configured -->
+    <script>
+      if ('%VITE_ANALYTICS_ENDPOINT%' && '%VITE_ANALYTICS_WEBSITE_ID%' && 
+          '%VITE_ANALYTICS_ENDPOINT%'.indexOf('VITE_') === -1) {
+        const script = document.createElement('script');
+        script.defer = true;
+        script.src = '%VITE_ANALYTICS_ENDPOINT%/umami';
+        script.setAttribute('data-website-id', '%VITE_ANALYTICS_WEBSITE_ID%');
+        document.body.appendChild(script);
+      }
+    </script>
   </body>
 
 </html>
