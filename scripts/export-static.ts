@@ -28,6 +28,23 @@ const OUT_DIR = path.join(projectRoot, 'out');
 const SERVER_PORT = 3001;
 const BASE_URL = `http://localhost:${SERVER_PORT}`;
 
+// Timeouts and delays (in milliseconds)
+const SERVER_START_TIMEOUT = 15000;
+const SERVER_READY_DELAY = 3000;
+const PAGE_RENDER_DELAY = 2000;
+const SERVER_CLEANUP_DELAY = 1000;
+
+// Chrome executable paths to try (in order)
+const CHROME_PATHS = [
+  process.env.PUPPETEER_EXECUTABLE_PATH,
+  '/usr/bin/google-chrome',
+  '/usr/bin/chromium-browser',
+  '/usr/bin/chromium',
+  'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+  'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+].filter(Boolean) as string[];
+
 // Routes to pre-render (automatically detected from pages)
 const ROUTES = [
   '/',
@@ -87,7 +104,7 @@ function startServer(): Promise<{ stop: () => void; process: any }> {
   return new Promise((resolve, reject) => {
     console.log(`\n🚀 Starting static server on port ${SERVER_PORT}...`);
     
-    const server = spawn('npx', ['serve', BUILD_DIR, '-l', String(SERVER_PORT), '--no-clipboard', '--no-port-switching'], {
+    const server = spawn('npx', ['serve', BUILD_DIR, '-p', String(SERVER_PORT), '--no-clipboard', '--no-port-switching'], {
       cwd: projectRoot,
       stdio: ['ignore', 'pipe', 'pipe'],
       detached: false,
@@ -120,7 +137,7 @@ function startServer(): Promise<{ stop: () => void; process: any }> {
             },
             process: server,
           });
-        }, 3000);
+        }, SERVER_READY_DELAY);
       }
     });
 
@@ -139,7 +156,7 @@ function startServer(): Promise<{ stop: () => void; process: any }> {
       console.log(`Server process exited with code ${code}`);
     });
 
-    // Timeout after 15 seconds
+    // Timeout after configured time
     setTimeout(() => {
       if (!resolved) {
         resolved = true;
@@ -156,7 +173,7 @@ function startServer(): Promise<{ stop: () => void; process: any }> {
           process: server,
         });
       }
-    }, 15000);
+    }, SERVER_START_TIMEOUT);
   });
 }
 
@@ -260,11 +277,11 @@ async function prerenderRoute(browser: puppeteer.Browser, route: string): Promis
       }, route);
       
       // Wait for route to render
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve, PAGE_RENDER_DELAY));
     }
     
-    // Wait a bit for any client-side hydration using setTimeout
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // Wait for any client-side hydration
+    await new Promise(resolve => setTimeout(resolve, PAGE_RENDER_DELAY));
     
     // Get the rendered HTML
     const html = await page.content();
@@ -297,17 +314,44 @@ async function prerenderRoute(browser: puppeteer.Browser, route: string): Promis
 }
 
 /**
+ * Find available Chrome/Chromium executable
+ */
+async function findChromeExecutable(): Promise<string | undefined> {
+  for (const chromePath of CHROME_PATHS) {
+    try {
+      if (chromePath) {
+        await fs.access(chromePath);
+        return chromePath;
+      }
+    } catch {
+      continue;
+    }
+  }
+  
+  return undefined;
+}
+
+/**
  * Pre-render all routes
  */
 async function prerenderAllRoutes(): Promise<void> {
   console.log(`\n🎨 Pre-rendering ${ROUTES.length} routes...`);
   stats.totalRoutes = ROUTES.length;
   
-  const browser = await puppeteer.launch({
+  const executablePath = await findChromeExecutable();
+  const launchOptions: any = {
     headless: true,
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/google-chrome',
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
-  });
+  };
+  
+  if (executablePath) {
+    console.log(`Using Chrome at: ${executablePath}`);
+    launchOptions.executablePath = executablePath;
+  } else {
+    console.log('Using Puppeteer bundled Chromium');
+  }
+  
+  const browser = await puppeteer.launch(launchOptions);
   
   try {
     for (const route of ROUTES) {
@@ -424,7 +468,7 @@ async function main(): Promise<void> {
       console.log('\n🛑 Stopping server...');
       stopServer();
       // Wait a bit for cleanup
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, SERVER_CLEANUP_DELAY));
     }
     
     // Print summary
