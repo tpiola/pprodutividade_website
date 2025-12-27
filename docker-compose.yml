@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pprodutividade-web
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      # Load all environment variables from .env file
+      - NODE_ENV=${NODE_ENV:-production}
+      - PORT=${PORT:-3000}
+      - VITE_APP_ID=${VITE_APP_ID}
+      - JWT_SECRET=${JWT_SECRET}
+      - DATABASE_URL=${DATABASE_URL}
+      - OAUTH_SERVER_URL=${OAUTH_SERVER_URL}
+      - VITE_OAUTH_PORTAL_URL=${VITE_OAUTH_PORTAL_URL}
+      - OWNER_OPEN_ID=${OWNER_OPEN_ID}
+      - BUILT_IN_FORGE_API_URL=${BUILT_IN_FORGE_API_URL}
+      - BUILT_IN_FORGE_API_KEY=${BUILT_IN_FORGE_API_KEY}
+      - VITE_FRONTEND_FORGE_API_KEY=${VITE_FRONTEND_FORGE_API_KEY}
+      - VITE_FRONTEND_FORGE_API_URL=${VITE_FRONTEND_FORGE_API_URL}
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+      - AWS_S3_BUCKET=${AWS_S3_BUCKET}
+      - AWS_S3_REGION=${AWS_S3_REGION}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - VITE_ANALYTICS_ENDPOINT=${VITE_ANALYTICS_ENDPOINT}
+      - VITE_ANALYTICS_WEBSITE_ID=${VITE_ANALYTICS_WEBSITE_ID}
+      - GOOGLE_MAPS_API_KEY=${GOOGLE_MAPS_API_KEY}
+    env_file:
+      - .env
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/', (r) => process.exit(r.statusCode === 200 ? 0 : 1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - app-network
+    # Optional: Mount volume for development with hot reload
+    # Uncomment the following lines for development mode
+    # volumes:
+    #   - ./client:/app/client
+    #   - ./server:/app/server
+    #   - ./shared:/app/shared
+
+networks:
+  app-network:
+    driver: bridge
+
+# Optional: Add database service if needed
+# Uncomment to run MySQL locally with Docker
+# services:
+#   db:
+#     image: mysql:8.0
+#     container_name: pprodutividade-db
+#     environment:
+#       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword}
+#       MYSQL_DATABASE: ${DB_NAME:-pprodutividade}
+#       MYSQL_USER: ${DB_USER:-pproduser}
+#       MYSQL_PASSWORD: ${DB_PASSWORD:-pprodpass}
+#     ports:
+#       - "3306:3306"
+#     volumes:
+#       - db-data:/var/lib/mysql
+#     networks:
+#       - app-network
+#     restart: unless-stopped
+#
+# volumes:
+#   db-data:

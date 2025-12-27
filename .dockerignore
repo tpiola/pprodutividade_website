@@ -1,0 +1,75 @@
+# Dependencies
+node_modules
+.pnpm-store
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Build outputs (will be created during Docker build)
+dist
+build
+out
+*.dist
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs
+*.log
+
+# Testing
+coverage
+.nyc_output
+*.lcov
+
+# Temporary files
+tmp
+temp
+*.tmp
+*.bak
+
+# CI/CD
+.github
+
+# Documentation
+README.md
+*.md
+!package.json
+
+# Development files
+.prettierrc
+.prettierignore
+.eslintrc*
+.editorconfig
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+db/*.db
+
+# Manus specific
+.manus
+
+# Patches (not needed in container)
+patches
+
+# Other
+ideas.md
+todo.md
