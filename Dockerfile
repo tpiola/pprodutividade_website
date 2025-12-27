@@ -5,8 +5,8 @@
 # ==============================================================================
 FROM node:18-alpine AS builder
 
-# Install pnpm globally
-RUN npm install -g pnpm@10.4.1
+# Install pnpm globally (using corepack to avoid SSL issues)
+RUN corepack enable && corepack prepare pnpm@10.4.1 --activate
 
 # Set working directory
 WORKDIR /app
@@ -31,7 +31,7 @@ RUN pnpm run build
 FROM node:18-alpine AS production
 
 # Install pnpm for running the app
-RUN npm install -g pnpm@10.4.1
+RUN corepack enable && corepack prepare pnpm@10.4.1 --activate
 
 WORKDIR /app
 
