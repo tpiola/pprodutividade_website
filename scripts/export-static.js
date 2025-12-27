@@ -144,7 +144,9 @@ async function renderPages(serverProcess) {
   // Criar diretório de saída
   if (existsSync(outDir)) {
     console.log('🗑️  Limpando diretório out/ existente...');
-    cpSync(outDir, outDir + '_backup', { recursive: true });
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const backupDir = join(rootDir, `out_backup_${timestamp}`);
+    cpSync(outDir, backupDir, { recursive: true });
   }
   mkdirSync(outDir, { recursive: true });
 
@@ -200,19 +202,24 @@ async function copyAssets() {
   // Copiar arquivos CSS, JS, imagens do dist
   if (existsSync(distDir)) {
     try {
-      const files = readdirSync(distDir, { recursive: true });
+      const files = readdirSync(distDir, { recursive: true, withFileTypes: true });
       
-      for (const file of files) {
-        const srcPath = join(distDir, file);
-        const destPath = join(assetsDir, file);
+      for (const entry of files) {
+        // Skip directories, only process files
+        if (entry.isDirectory()) continue;
+        
+        const relPath = entry.path ? join(entry.path.replace(distDir, ''), entry.name) : entry.name;
+        const srcPath = join(distDir, relPath);
+        const destPath = join(assetsDir, relPath);
+        
+        // Skip HTML files
+        if (relPath.endsWith('.html')) continue;
         
         // Criar diretórios necessários
         mkdirSync(dirname(destPath), { recursive: true });
         
-        // Copiar arquivo se não for HTML
-        if (!file.endsWith('.html') && !file.includes('index.html')) {
-          cpSync(srcPath, destPath, { recursive: true, force: true });
-        }
+        // Copiar arquivo
+        cpSync(srcPath, destPath, { force: true });
       }
       
       console.log('✅ Assets copiados com sucesso!\n');

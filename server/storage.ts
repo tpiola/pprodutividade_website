@@ -85,7 +85,7 @@ export async function storagePut(
     const key = normalizeKey(relKey);
     return { 
       key, 
-      url: `data:text/plain;base64,${Buffer.from('Mock file: ' + key).toString('base64')}`
+      url: `data:text/plain;base64,${Buffer.from(`Mock file: ${key}`).toString('base64')}`
     };
   }
   
@@ -113,7 +113,7 @@ export async function storagePut(
     const key = normalizeKey(relKey);
     return { 
       key, 
-      url: `data:text/plain;base64,${Buffer.from('Error uploading: ' + key).toString('base64')}`
+      url: `data:text/plain;base64,${Buffer.from(`Error uploading: ${key}`).toString('base64')}`
     };
   }
 }
@@ -127,7 +127,7 @@ export async function storageGet(relKey: string): Promise<{ key: string; url: st
     console.warn('⚠️  DEV MODE: Using mock storage. File not actually retrieved.');
     return {
       key,
-      url: `data:text/plain;base64,${Buffer.from('Mock file: ' + key).toString('base64')}`,
+      url: `data:text/plain;base64,${Buffer.from(`Mock file: ${key}`).toString('base64')}`,
     };
   }
   
@@ -141,7 +141,7 @@ export async function storageGet(relKey: string): Promise<{ key: string; url: st
     console.error('⚠️  Erro ao obter URL de download:', errorMessage);
     return {
       key,
-      url: `data:text/plain;base64,${Buffer.from('Error downloading: ' + key).toString('base64')}`,
+      url: `data:text/plain;base64,${Buffer.from(`Error downloading: ${key}`).toString('base64')}`,
     };
   }
 }
