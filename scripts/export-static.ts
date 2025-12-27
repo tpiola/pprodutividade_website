@@ -83,35 +83,49 @@ function runCommand(command: string, args: string[]): Promise<void> {
 /**
  * Start static file server
  */
-function startServer(): Promise<() => void> {
+function startServer(): Promise<{ stop: () => void; process: any }> {
   return new Promise((resolve, reject) => {
     console.log(`\n🚀 Starting static server on port ${SERVER_PORT}...`);
     
-    const server = spawn('npx', ['serve', BUILD_DIR, '-l', String(SERVER_PORT), '--no-clipboard'], {
+    const server = spawn('npx', ['serve', BUILD_DIR, '-l', String(SERVER_PORT), '--no-clipboard', '--no-port-switching'], {
       cwd: projectRoot,
       stdio: ['ignore', 'pipe', 'pipe'],
+      detached: false,
     });
 
     let resolved = false;
 
     server.stdout?.on('data', (data) => {
       const output = data.toString();
-      if (output.includes('Accepting connections') || output.includes('Local:')) {
-        if (!resolved) {
-          resolved = true;
-          console.log('✅ Server started successfully');
-          // Wait a bit for server to be fully ready
-          setTimeout(() => {
-            resolve(() => {
-              server.kill();
-            });
-          }, 1000);
-        }
+      // Only log first few lines to avoid clutter
+      if (!resolved) {
+        console.log('Server output:', output.trim());
+      }
+      
+      if ((output.includes('Accepting connections') || output.includes('Local:')) && !resolved) {
+        resolved = true;
+        console.log('✅ Server started successfully');
+        // Wait for server to be fully ready
+        setTimeout(() => {
+          resolve({ 
+            stop: () => {
+              console.log('Killing server process...');
+              server.kill('SIGTERM');
+              // Force kill after 2 seconds if still alive
+              setTimeout(() => {
+                if (!server.killed) {
+                  server.kill('SIGKILL');
+                }
+              }, 2000);
+            },
+            process: server,
+          });
+        }, 3000);
       }
     });
 
     server.stderr?.on('data', (data) => {
-      console.error('Server error:', data.toString());
+      console.error('Server stderr:', data.toString());
     });
 
     server.on('error', (err) => {
@@ -121,14 +135,28 @@ function startServer(): Promise<() => void> {
       }
     });
 
-    // Timeout after 10 seconds
+    server.on('exit', (code) => {
+      console.log(`Server process exited with code ${code}`);
+    });
+
+    // Timeout after 15 seconds
     setTimeout(() => {
       if (!resolved) {
         resolved = true;
-        server.kill();
-        reject(new Error('Server start timeout'));
+        console.log('⚠️ Server timeout, assuming it started...');
+        resolve({ 
+          stop: () => {
+            server.kill('SIGTERM');
+            setTimeout(() => {
+              if (!server.killed) {
+                server.kill('SIGKILL');
+              }
+            }, 2000);
+          },
+          process: server,
+        });
       }
-    }, 10000);
+    }, 15000);
   });
 }
 
@@ -202,7 +230,7 @@ async function copyDirectory(src: string, dest: string): Promise<void> {
  * Pre-render a single route
  */
 async function prerenderRoute(browser: puppeteer.Browser, route: string): Promise<void> {
-  const url = `${BASE_URL}${route}`;
+  const url = `${BASE_URL}${route === '/' ? '' : route}`;
   console.log(`\n🔍 Pre-rendering: ${route}`);
   
   try {
@@ -211,14 +239,32 @@ async function prerenderRoute(browser: puppeteer.Browser, route: string): Promis
     // Set viewport for consistent rendering
     await page.setViewport({ width: 1920, height: 1080 });
     
-    // Navigate to the page
-    await page.goto(url, {
-      waitUntil: 'networkidle0',
-      timeout: 30000,
-    });
+    // For SPA routing, we need to navigate to the root first, then use client-side navigation
+    // or just navigate directly if it's the root
+    if (route === '/') {
+      await page.goto(BASE_URL, {
+        waitUntil: 'networkidle0',
+        timeout: 30000,
+      });
+    } else {
+      // Navigate to root first (loads the SPA)
+      await page.goto(BASE_URL, {
+        waitUntil: 'networkidle0',
+        timeout: 30000,
+      });
+      
+      // Then navigate using the client-side router
+      await page.evaluate((path) => {
+        window.history.pushState({}, '', path);
+        window.dispatchEvent(new PopStateEvent('popstate'));
+      }, route);
+      
+      // Wait for route to render
+      await new Promise(resolve => setTimeout(resolve, 2000));
+    }
     
-    // Wait a bit for any client-side hydration
-    await page.waitForTimeout(1000);
+    // Wait a bit for any client-side hydration using setTimeout
+    await new Promise(resolve => setTimeout(resolve, 2000));
     
     // Get the rendered HTML
     const html = await page.content();
@@ -259,7 +305,8 @@ async function prerenderAllRoutes(): Promise<void> {
   
   const browser = await puppeteer.launch({
     headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/google-chrome',
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
   });
   
   try {
@@ -361,7 +408,7 @@ async function main(): Promise<void> {
     await prepareOutputDir();
     
     // Step 3: Start static server
-    const stopServer = await startServer();
+    const { stop: stopServer } = await startServer();
     
     try {
       // Step 4: Copy assets
@@ -376,6 +423,8 @@ async function main(): Promise<void> {
       // Stop server
       console.log('\n🛑 Stopping server...');
       stopServer();
+      // Wait a bit for cleanup
+      await new Promise(resolve => setTimeout(resolve, 1000));
     }
     
     // Print summary
