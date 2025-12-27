@@ -108,7 +108,8 @@ export async function storagePut(
     const url = (await response.json()).url;
     return { key, url };
   } catch (err) {
-    console.error('⚠️  Erro ao fazer upload para storage:', err.message);
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    console.error('⚠️  Erro ao fazer upload para storage:', errorMessage);
     const key = normalizeKey(relKey);
     return { 
       key, 
@@ -136,7 +137,8 @@ export async function storageGet(relKey: string): Promise<{ key: string; url: st
       url: await buildDownloadUrl(baseUrl, key, apiKey),
     };
   } catch (err) {
-    console.error('⚠️  Erro ao obter URL de download:', err.message);
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    console.error('⚠️  Erro ao obter URL de download:', errorMessage);
     return {
       key,
       url: `data:text/plain;base64,${Buffer.from('Error downloading: ' + key).toString('base64')}`,
