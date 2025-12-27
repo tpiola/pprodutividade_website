@@ -1,0 +1,53 @@
+# Dependencies
+node_modules
+.pnpm-store
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build outputs
+dist
+build
+out
+*.dist
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+
+# Testing
+coverage
+.nyc_output
+
+# Documentation
+*.md
+!README.md
+
+# Temporary files
+tmp
+temp
+*.log
+
+# Other
+.prettierrc
+.prettierignore
+.editorconfig

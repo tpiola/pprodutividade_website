@@ -6,6 +6,8 @@
 dist/
 build/
 *.dist
+out/
+site-export.zip
 
 # Environment variables
 .env

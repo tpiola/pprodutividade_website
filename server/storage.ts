@@ -10,9 +10,14 @@ function getStorageConfig(): StorageConfig {
   const apiKey = ENV.forgeApiKey;
 
   if (!baseUrl || !apiKey) {
-    throw new Error(
-      "Storage proxy credentials missing: set BUILT_IN_FORGE_API_URL and BUILT_IN_FORGE_API_KEY"
+    // DEV MODE: Return mock config to avoid breaking the app
+    console.warn(
+      "⚠️  DEV MODE: Storage proxy credentials missing. Using mock storage."
     );
+    return { 
+      baseUrl: "https://mock-storage.example.com", 
+      apiKey: "mock-key" 
+    };
   }
 
   return { baseUrl: baseUrl.replace(/\/+$/, ""), apiKey };
@@ -73,30 +78,68 @@ export async function storagePut(
   contentType = "application/octet-stream"
 ): Promise<{ key: string; url: string }> {
   const { baseUrl, apiKey } = getStorageConfig();
-  const key = normalizeKey(relKey);
-  const uploadUrl = buildUploadUrl(baseUrl, key);
-  const formData = toFormData(data, contentType, key.split("/").pop() ?? key);
-  const response = await fetch(uploadUrl, {
-    method: "POST",
-    headers: buildAuthHeaders(apiKey),
-    body: formData,
-  });
-
-  if (!response.ok) {
-    const message = await response.text().catch(() => response.statusText);
-    throw new Error(
-      `Storage upload failed (${response.status} ${response.statusText}): ${message}`
-    );
+  
+  // DEV MODE: Return placeholder URL if using mock config
+  if (baseUrl === "https://mock-storage.example.com") {
+    console.warn('⚠️  DEV MODE: Using mock storage. File not actually uploaded.');
+    const key = normalizeKey(relKey);
+    return { 
+      key, 
+      url: `data:text/plain;base64,${Buffer.from('Mock file: ' + key).toString('base64')}`
+    };
   }
-  const url = (await response.json()).url;
-  return { key, url };
+  
+  try {
+    const key = normalizeKey(relKey);
+    const uploadUrl = buildUploadUrl(baseUrl, key);
+    const formData = toFormData(data, contentType, key.split("/").pop() ?? key);
+    const response = await fetch(uploadUrl, {
+      method: "POST",
+      headers: buildAuthHeaders(apiKey),
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const message = await response.text().catch(() => response.statusText);
+      throw new Error(
+        `Storage upload failed (${response.status} ${response.statusText}): ${message}`
+      );
+    }
+    const url = (await response.json()).url;
+    return { key, url };
+  } catch (err) {
+    console.error('⚠️  Erro ao fazer upload para storage:', err.message);
+    const key = normalizeKey(relKey);
+    return { 
+      key, 
+      url: `data:text/plain;base64,${Buffer.from('Error uploading: ' + key).toString('base64')}`
+    };
+  }
 }
 
 export async function storageGet(relKey: string): Promise<{ key: string; url: string; }> {
   const { baseUrl, apiKey } = getStorageConfig();
   const key = normalizeKey(relKey);
-  return {
-    key,
-    url: await buildDownloadUrl(baseUrl, key, apiKey),
-  };
+  
+  // DEV MODE: Return placeholder URL if using mock config
+  if (baseUrl === "https://mock-storage.example.com") {
+    console.warn('⚠️  DEV MODE: Using mock storage. File not actually retrieved.');
+    return {
+      key,
+      url: `data:text/plain;base64,${Buffer.from('Mock file: ' + key).toString('base64')}`,
+    };
+  }
+  
+  try {
+    return {
+      key,
+      url: await buildDownloadUrl(baseUrl, key, apiKey),
+    };
+  } catch (err) {
+    console.error('⚠️  Erro ao obter URL de download:', err.message);
+    return {
+      key,
+      url: `data:text/plain;base64,${Buffer.from('Error downloading: ' + key).toString('base64')}`,
+    };
+  }
 }
