@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: pprodutividade_web
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    volumes:
+      # Volume opcional para desenvolvimento - descomente se necessário
+      # - ./client:/app/client
+      # - ./server:/app/server
+      # - ./shared:/app/shared
+      - /app/node_modules
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Serviço de desenvolvimento (opcional)
+  # Descomente para usar em modo de desenvolvimento com hot-reload
+  # dev:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #     target: builder
+  #   container_name: pprodutividade_dev
+  #   ports:
+  #     - "3000:3000"
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     - NODE_ENV=development
+  #     - PORT=3000
+  #   volumes:
+  #     - ./client:/app/client
+  #     - ./server:/app/server
+  #     - ./shared:/app/shared
+  #     - /app/node_modules
+  #   command: pnpm run dev
+
+# Networks
+networks:
+  default:
+    name: pprodutividade_network
