@@ -20,6 +20,9 @@ on:
 jobs:
   export-static:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
     
     steps:
       - name: 📥 Checkout code
